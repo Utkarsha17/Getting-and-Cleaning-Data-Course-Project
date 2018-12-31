@@ -1,3 +1,30 @@
+The run_analysis.R script performs following steps for data preparation and transformation
+
+1. Download the dataset 
+Dataset downloaded and extracted under the folder called UCI HAR Dataset
+
+2. Read train and test data respective and assign them to dataframes.
+
+3. Read description and activty labels.
+
+4. Merges the training and the test sets to create one data set
+x_total <- rbind(x_train, x_test)
+y_total <- rbind(y_train, y_test)
+sub_total <- rbind(sub_train, sub_test)
+
+5. Extracts only the measurements on the mean and standard deviation for each measurement
+selected_var <- variable_names[grep("mean\\(\\)|std\\(\\)",variable_names[,2]),]
+x_total <- x_total[,selected_var[,1]]
+here it selected only columns subject, code and measurements mean and std. 
+
+6. Uses descriptive activity names to name the activities in the data set
+colnames(x_total) <- variable_names[selected_var[,1],2]
+Code columns replaced with corresponding activity from activities dataframes
+
+7. Appropriately labels the data set with descriptive variable names
+
+8. Final output returns tidydata text file by taking means of each varibaled for each activity and each subject after grouped by subject and activity. 
+
 Tidy data set description
 The variables in the tidy data
 Tidy data contains 180 rows and 68 columns. Each row has averaged variables for each subject and each activity.
@@ -14,6 +41,8 @@ WALKING_DOWNSTAIRS
 SITTING
 STANDING
 LAYING
+
+
 The tidy data contains 6 rows (averaged based on activity) and 68 columns (66 variables and activity labels).
 "activitylabel"
 "subject"
